@@ -1,0 +1,44 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+get:
+  summary: OAuth Authorization Server Metadata
+  description: >
+    Returns OAuth 2.0 Authorization Server Metadata (RFC 8414). MCP clients use this to discover token endpoints,
+    supported grant types, and other authorization server capabilities. Unauthenticated and CORS-unrestricted. Only
+    available when `MCP_OAUTH_ENABLED=true`.
+  operationId: getOAuthAuthorizationServerMetadata
+  security: []
+  tags:
+    - MCP OAuth
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            description: RFC 8414 authorization server metadata.
+            properties:
+              issuer:
+                type: string
+                description: Authorization server issuer identifier.
+              authorization_endpoint:
+                type: string
+              token_endpoint:
+                type: string
+              registration_endpoint:
+                type: string
+                description: Dynamic Client Registration endpoint (RFC 7591).
+              revocation_endpoint:
+                type: string
+              response_types_supported:
+                type: array
+                items:
+                  type: string
+              grant_types_supported:
+                type: array
+                items:
+                  type: string
+              code_challenge_methods_supported:
+                type: array
+                items:
+                  type: string

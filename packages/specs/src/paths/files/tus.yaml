@@ -1,0 +1,44 @@
+x-enabled-env: TUS_ENABLED
+post:
+  summary: Create TUS Upload
+  description: >
+    Initiate a resumable file upload using the TUS protocol (tus.io). Returns a `Location` header with the upload URL
+    for subsequent PATCH requests. Only available when `TUS_ENABLED=true`.
+  operationId: createTusUpload
+  tags:
+    - TUS Uploads
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/TusResumable'
+    - name: Upload-Length
+      in: header
+      required: false
+      description: Total size of the upload in bytes. Required unless upload deferral is used.
+      schema:
+        type: integer
+    - name: Upload-Defer-Length
+      in: header
+      required: false
+      description: Set to `1` to defer providing the upload length until the final PATCH.
+      schema:
+        type: integer
+        enum: [1]
+    - name: Upload-Metadata
+      in: header
+      required: false
+      description: Comma-separated key-value pairs of upload metadata, base64-encoded.
+      schema:
+        type: string
+  responses:
+    '201':
+      description: Upload created
+      headers:
+        Location:
+          description: URL to use for subsequent PATCH (upload chunk) requests.
+          schema:
+            type: string
+        Tus-Resumable:
+          description: TUS protocol version in use.
+          schema:
+            type: string
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'

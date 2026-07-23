@@ -61,6 +61,22 @@ tags:
   - name: Items
     description:
       Items are individual pieces of data in your database. They can be anything, from articles, to IoT status checks.
+  - name: MCP
+    description:
+      Model Context Protocol (MCP) streaming endpoint. Only available when `MCP_ENABLED=true` and the `mcp_enabled`
+      project setting is on.
+    x-enabled-env: MCP_ENABLED
+  - name: MCP OAuth
+    description:
+      MCP OAuth 2.0 authorization server endpoints for MCP client authentication. Only available when
+      `MCP_OAUTH_ENABLED=true`.
+    x-enabled-env: MCP_OAUTH_ENABLED
+  - name: Metrics
+    description: >
+      Prometheus-compatible metrics endpoint. Accessible to admin users via standard auth or to dedicated monitoring
+      clients using `Metrics {token}` in the Authorization header (where `{token}` is a value from METRICS_TOKENS). Only
+      available when METRICS_ENABLED=true.
+    x-enabled-env: METRICS_ENABLED
   - name: Notifications
     description: Notifications are shown in the Data Studio to alert users of relevant events.
     x-collection: directus_notifications
@@ -108,6 +124,9 @@ tags:
   - name: Translations
     description: Translations store custom translation strings used throughout the Data Studio.
     x-collection: directus_translations
+  - name: TUS Uploads
+    description: Resumable file uploads using the TUS protocol (tus.io). Only available when TUS_ENABLED=true.
+    x-enabled-env: TUS_ENABLED
   - name: Users
     description: Users are what gives you access to the data.
     x-collection: directus_users
@@ -157,6 +176,34 @@ paths:
   /items/{collection}/{id}:
     $ref: './paths/items/item.yaml'
 
+  # MCP
+  /mcp:
+    $ref: './paths/mcp/mcp.yaml'
+
+  # MCP OAuth
+  /.well-known/oauth-authorization-server:
+    $ref: './paths/mcp/well-known-auth-server.yaml'
+  /.well-known/oauth-protected-resource:
+    $ref: './paths/mcp/well-known-protected-resource.yaml'
+  /mcp-oauth/authorize:
+    $ref: './paths/mcp/oauth-authorize.yaml'
+  /mcp-oauth/authorize/decision:
+    $ref: './paths/mcp/oauth-decision.yaml'
+  /mcp-oauth/clients:
+    $ref: './paths/mcp/mcp-oauth-clients.yaml'
+  /mcp-oauth/clients/{id}:
+    $ref: './paths/mcp/mcp-oauth-client.yaml'
+  /mcp-oauth/register:
+    $ref: './paths/mcp/oauth-register.yaml'
+  /mcp-oauth/revoke:
+    $ref: './paths/mcp/oauth-revoke.yaml'
+  /mcp-oauth/token:
+    $ref: './paths/mcp/oauth-token.yaml'
+
+  # Metrics
+  /metrics:
+    $ref: './paths/metrics/metrics.yaml'
+
   # Presets
   /presets:
     $ref: './paths/presets/presets.yaml'
@@ -204,6 +251,10 @@ paths:
     $ref: './paths/files/import.yaml'
   /files/{id}:
     $ref: './paths/files/file.yaml'
+  /files/tus:
+    $ref: './paths/files/tus.yaml'
+  /files/tus/{id}:
+    $ref: './paths/files/tus-upload.yaml'
 
   # Flows
   /flows:
@@ -383,6 +434,8 @@ components:
       $ref: './components/folder.yaml'
     Items:
       $ref: './components/item.yaml'
+    McpOAuthClient:
+      $ref: './components/mcp-oauth-client.yaml'
     Notifications:
       $ref: './components/notification.yaml'
     Operations:
@@ -456,6 +509,10 @@ components:
       $ref: './parameters/export.yaml'
     Version:
       $ref: './parameters/version.yaml'
+
+    # All header parameters
+    TusResumable:
+      $ref: './parameters/tus-resumable.yaml'
   responses:
     BadRequestError:
       $ref: './responses/badRequestError.yaml'
@@ -480,6 +537,13 @@ components:
       type: apiKey
       in: header
       name: 'Authorization'
+    MetricsAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: >
+        Dedicated metrics token for non-admin access. Set the Authorization header to `Metrics {token}`, where `{token}`
+        is one of the values in the METRICS_TOKENS environment variable.
 security:
   - Auth: []
   - KeyAuth: []

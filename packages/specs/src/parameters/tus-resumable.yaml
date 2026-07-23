@@ -1,0 +1,7 @@
+description: TUS protocol version. Must be `1.0.0`.
+name: Tus-Resumable
+in: header
+required: true
+schema:
+  type: string
+  example: '1.0.0'

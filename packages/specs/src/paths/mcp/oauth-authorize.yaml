@@ -1,0 +1,64 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+get:
+  summary: MCP OAuth Authorize
+  description: >
+    Renders the OAuth 2.0 consent page for an MCP client authorization request. Redirects to the Directus login page if
+    no session cookie is present. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: mcpOAuthAuthorize
+  security: []
+  tags:
+    - MCP OAuth
+  parameters:
+    - name: client_id
+      in: query
+      required: true
+      schema:
+        type: string
+    - name: redirect_uri
+      in: query
+      required: true
+      schema:
+        type: string
+    - name: response_type
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [code]
+    - name: code_challenge
+      in: query
+      required: true
+      description: PKCE code challenge (RFC 7636).
+      schema:
+        type: string
+    - name: code_challenge_method
+      in: query
+      required: true
+      schema:
+        type: string
+        enum: [S256]
+    - name: scope
+      in: query
+      required: false
+      schema:
+        type: string
+    - name: state
+      in: query
+      required: false
+      schema:
+        type: string
+  responses:
+    '200':
+      description: Consent page HTML
+      content:
+        text/html:
+          schema:
+            type: string
+    '302':
+      description: Redirect to login page (no active session) or back to client with error.
+      headers:
+        Location:
+          schema:
+            type: string
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'

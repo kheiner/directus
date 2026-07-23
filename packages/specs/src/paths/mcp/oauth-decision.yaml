@@ -1,0 +1,34 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+post:
+  summary: MCP OAuth Authorization Decision
+  description: >
+    Process the user's consent decision from the authorization page. Requires a valid Directus session cookie and
+    same-origin request. Redirects back to the client with an authorization code on approval. Only available when
+    `MCP_OAUTH_ENABLED=true`.
+  operationId: mcpOAuthDecision
+  tags:
+    - MCP OAuth
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required: [signed_params, approved]
+          properties:
+            signed_params:
+              type: string
+              description: Signed consent JWT from the authorization page.
+            approved:
+              type: string
+              enum: ['true', 'false']
+              description: Whether the user approved or denied the request.
+  responses:
+    '302':
+      description: Redirect back to the client with an authorization code or error.
+      headers:
+        Location:
+          schema:
+            type: string
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'

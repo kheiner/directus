@@ -1,0 +1,24 @@
+x-enabled-env: METRICS_ENABLED
+get:
+  summary: List Metrics
+  description: >
+    Returns Prometheus-format metrics for monitoring your Directus instance. Admin users may use standard auth (`Auth`
+    or `KeyAuth`). Non-admin monitoring clients pass `Metrics {token}` as the Authorization header value, where
+    `{token}` is one of the values in `METRICS_TOKENS`. Only available when `METRICS_ENABLED=true`.
+  operationId: getMetrics
+  security:
+    - MetricsAuth: []
+    - Auth: []
+    - KeyAuth: []
+  responses:
+    '200':
+      description: Successful request
+      content:
+        text/plain:
+          schema:
+            type: string
+            description: Prometheus exposition format metrics text.
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'
+  tags:
+    - Metrics

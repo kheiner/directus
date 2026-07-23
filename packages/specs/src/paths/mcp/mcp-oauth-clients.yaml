@@ -1,0 +1,56 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+get:
+  summary: List MCP OAuth Clients
+  description: >
+    Returns the list of registered MCP OAuth clients (Dynamic Client Registration entries). Admin access required. Only
+    available when `MCP_OAUTH_ENABLED=true`.
+  operationId: getMcpOAuthClients
+  tags:
+    - MCP OAuth
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+    - $ref: '../../openapi.yaml#/components/parameters/Limit'
+    - $ref: '../../openapi.yaml#/components/parameters/Offset'
+    - $ref: '../../openapi.yaml#/components/parameters/Page'
+    - $ref: '../../openapi.yaml#/components/parameters/Sort'
+    - $ref: '../../openapi.yaml#/components/parameters/Filter'
+    - $ref: '../../openapi.yaml#/components/parameters/Search'
+    # TODO(directus/directus#27938): uncomment once the reusable parameters land
+    # - $ref: '../../openapi.yaml#/components/parameters/Aggregate'
+    # - $ref: '../../openapi.yaml#/components/parameters/GroupBy'
+    # - $ref: '../../openapi.yaml#/components/parameters/Deep'
+    # - $ref: '../../openapi.yaml#/components/parameters/Alias'
+    # - $ref: '../../openapi.yaml#/components/parameters/Export'
+    # - $ref: '../../openapi.yaml#/components/parameters/Backlink'
+    - $ref: '../../openapi.yaml#/components/parameters/Meta'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: array
+                items:
+                  $ref: '../../openapi.yaml#/components/schemas/McpOAuthClient'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'
+
+delete:
+  summary: Delete MCP OAuth Clients
+  description: >
+    Delete multiple MCP OAuth clients in bulk. Admin access required. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: deleteMcpOAuthClients
+  tags:
+    - MCP OAuth
+  responses:
+    '204':
+      $ref: '../../openapi.yaml#/components/responses/NoContentResponse'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'

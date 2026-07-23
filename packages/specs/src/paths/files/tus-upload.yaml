@@ -1,0 +1,116 @@
+x-enabled-env: TUS_ENABLED
+head:
+  summary: Get TUS Upload Offset
+  description: >
+    Retrieve the current byte offset and length for an in-progress TUS upload. Used by clients to resume an interrupted
+    upload. Only available when `TUS_ENABLED=true`.
+  operationId: headTusUpload
+  tags:
+    - TUS Uploads
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/TusResumable'
+  responses:
+    '200':
+      description: Successful request
+      headers:
+        Upload-Offset:
+          description: Number of bytes received so far.
+          schema:
+            type: integer
+        Upload-Length:
+          description: Total upload size in bytes (absent if deferred).
+          schema:
+            type: integer
+        Tus-Resumable:
+          description: TUS protocol version in use.
+          schema:
+            type: string
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+
+options:
+  summary: TUS Upload Capabilities
+  description: >
+    Returns the TUS protocol version and supported extensions for this upload endpoint. Only available when
+    `TUS_ENABLED=true`.
+  operationId: optionsTusUpload
+  security: []
+  tags:
+    - TUS Uploads
+  responses:
+    '204':
+      description: Successful request
+      headers:
+        Tus-Version:
+          description: Comma-separated list of supported TUS protocol versions.
+          schema:
+            type: string
+        Tus-Resumable:
+          description: TUS protocol version in use.
+          schema:
+            type: string
+        Tus-Extension:
+          description: Comma-separated list of supported TUS extensions.
+          schema:
+            type: string
+
+patch:
+  summary: Upload TUS Chunk
+  description: >
+    Append a chunk of bytes to an in-progress TUS upload. The `Upload-Offset` header must match the current offset from
+    the HEAD response. Only available when `TUS_ENABLED=true`.
+  operationId: patchTusUpload
+  tags:
+    - TUS Uploads
+  parameters:
+    - name: Upload-Offset
+      in: header
+      required: true
+      description: Byte offset at which to begin writing this chunk.
+      schema:
+        type: integer
+    - $ref: '../../openapi.yaml#/components/parameters/TusResumable'
+  requestBody:
+    required: true
+    content:
+      application/offset+octet-stream:
+        schema:
+          type: string
+          format: binary
+  responses:
+    '204':
+      description: Chunk accepted
+      headers:
+        Upload-Offset:
+          description: New byte offset after appending this chunk.
+          schema:
+            type: integer
+        Tus-Resumable:
+          description: TUS protocol version in use.
+          schema:
+            type: string
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+
+delete:
+  summary: Abort TUS Upload
+  description: >
+    Terminate an in-progress TUS upload and free the stored bytes. Only available when `TUS_ENABLED=true`.
+  operationId: deleteTusUpload
+  tags:
+    - TUS Uploads
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/TusResumable'
+  responses:
+    '204':
+      $ref: '../../openapi.yaml#/components/responses/NoContentResponse'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'

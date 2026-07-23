@@ -1,0 +1,46 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+post:
+  summary: MCP OAuth Dynamic Client Registration
+  description: >
+    Register a new MCP OAuth client using Dynamic Client Registration (RFC 7591). Rate-limited. Returns the client
+    credentials including the generated `client_id`. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: mcpOAuthRegister
+  security: []
+  tags:
+    - MCP OAuth
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            client_name:
+              type: string
+              description: Name of the client.
+            redirect_uris:
+              type: array
+              items:
+                type: string
+              description: Allowed redirect URIs.
+            grant_types:
+              type: array
+              items:
+                type: string
+              default: [authorization_code]
+            token_endpoint_auth_method:
+              type: string
+              default: none
+            scope:
+              type: string
+  responses:
+    '201':
+      description: Client registered
+      content:
+        application/json:
+          schema:
+            $ref: '../../openapi.yaml#/components/schemas/McpOAuthClient'
+    '400':
+      $ref: '../../openapi.yaml#/components/responses/BadRequestError'
+    '429':
+      $ref: '../../openapi.yaml#/components/responses/TooManyRequestsError'

@@ -1,0 +1,27 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+get:
+  summary: OAuth Protected Resource Metadata
+  description: >
+    Returns OAuth 2.0 Protected Resource Metadata (RFC 9728). MCP clients use this to discover the authorization server
+    that protects the MCP endpoint. Unauthenticated and CORS-unrestricted. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: getOAuthProtectedResourceMetadata
+  security: []
+  tags:
+    - MCP OAuth
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            description: RFC 9728 protected resource metadata.
+            properties:
+              resource:
+                type: string
+                description: URI of the protected resource (the MCP endpoint).
+              authorization_servers:
+                type: array
+                items:
+                  type: string
+                description: URIs of authorization servers that protect this resource.

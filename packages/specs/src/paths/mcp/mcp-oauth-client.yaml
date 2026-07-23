@@ -1,0 +1,47 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+get:
+  summary: Get MCP OAuth Client
+  description: >
+    Retrieve a single registered MCP OAuth client by its client ID. Admin access required. Only available when
+    `MCP_OAUTH_ENABLED=true`.
+  operationId: getMcpOAuthClient
+  tags:
+    - MCP OAuth
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/McpOAuthClient'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+
+delete:
+  summary: Delete MCP OAuth Client
+  description: >
+    Delete a registered MCP OAuth client by its client ID and revoke all its active tokens. Admin access required. Only
+    available when `MCP_OAUTH_ENABLED=true`.
+  operationId: deleteMcpOAuthClient
+  tags:
+    - MCP OAuth
+  responses:
+    '204':
+      $ref: '../../openapi.yaml#/components/responses/NoContentResponse'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'

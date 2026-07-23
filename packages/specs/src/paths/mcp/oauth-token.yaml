@@ -1,0 +1,58 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+post:
+  summary: MCP OAuth Token
+  description: >
+    Exchange an authorization code or refresh token for MCP OAuth access and refresh tokens. Accepts
+    `authorization_code` and `refresh_token` grant types. Rate-limited. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: mcpOAuthToken
+  security: []
+  tags:
+    - MCP OAuth
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required: [grant_type]
+          properties:
+            grant_type:
+              type: string
+              enum: [authorization_code, refresh_token]
+            code:
+              type: string
+              description: Authorization code. Required for `authorization_code` grant.
+            redirect_uri:
+              type: string
+              description: Must match the redirect URI used in the authorization request.
+            code_verifier:
+              type: string
+              description: PKCE verifier (RFC 7636). Required for `authorization_code` grant.
+            refresh_token:
+              type: string
+              description: Required for `refresh_token` grant.
+            client_id:
+              type: string
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              access_token:
+                type: string
+              token_type:
+                type: string
+                enum: [Bearer]
+              expires_in:
+                type: integer
+              refresh_token:
+                type: string
+              scope:
+                type: string
+    '400':
+      $ref: '../../openapi.yaml#/components/responses/BadRequestError'
+    '429':
+      $ref: '../../openapi.yaml#/components/responses/TooManyRequestsError'

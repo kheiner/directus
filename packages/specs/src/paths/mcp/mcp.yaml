@@ -1,0 +1,90 @@
+x-enabled-env: MCP_ENABLED
+get:
+  summary: MCP JSON-RPC (GET)
+  description: >
+    Send a JSON-RPC 2.0 message to the MCP server via GET. Server-Sent Events are not currently supported (`Accept:
+    text/event-stream` returns 405). Only available when `MCP_ENABLED=true` and the `mcp_enabled` project setting is on.
+  operationId: mcpGet
+  tags:
+    - MCP
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          description: JSON-RPC 2.0 request or notification.
+          properties:
+            jsonrpc:
+              type: string
+              enum: ['2.0']
+            id:
+              oneOf:
+                - type: string
+                - type: integer
+              description: Request ID. Omit for notifications.
+            method:
+              type: string
+              description: MCP method name.
+            params:
+              type: object
+              description: Method parameters.
+          required: [jsonrpc, method]
+  responses:
+    '200':
+      description: JSON-RPC response
+      content:
+        application/json:
+          schema:
+            type: object
+    '202':
+      description: Notification accepted (no response body)
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'
+
+post:
+  summary: MCP JSON-RPC (POST)
+  description: >
+    Send a JSON-RPC 2.0 message to the MCP server. Only available when `MCP_ENABLED=true` and the `mcp_enabled` project
+    setting is on.
+  operationId: mcpPost
+  tags:
+    - MCP
+  requestBody:
+    required: true
+    content:
+      application/json:
+        schema:
+          type: object
+          description: JSON-RPC 2.0 request or notification.
+          properties:
+            jsonrpc:
+              type: string
+              enum: ['2.0']
+            id:
+              oneOf:
+                - type: string
+                - type: integer
+              description: Request ID. Omit for notifications.
+            method:
+              type: string
+              description: MCP method name.
+            params:
+              type: object
+              description: Method parameters.
+          required: [jsonrpc, method]
+  responses:
+    '200':
+      description: JSON-RPC response
+      content:
+        application/json:
+          schema:
+            type: object
+    '202':
+      description: Notification accepted (no response body)
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '403':
+      $ref: '../../openapi.yaml#/components/responses/ForbiddenError'

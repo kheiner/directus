@@ -1,0 +1,30 @@
+x-enabled-env: MCP_OAUTH_ENABLED
+post:
+  summary: MCP OAuth Token Revocation
+  description: >
+    Revoke an MCP OAuth access or refresh token (RFC 7009). Rate-limited. Only available when `MCP_OAUTH_ENABLED=true`.
+  operationId: mcpOAuthRevoke
+  security: []
+  tags:
+    - MCP OAuth
+  requestBody:
+    required: true
+    content:
+      application/x-www-form-urlencoded:
+        schema:
+          type: object
+          required: [token]
+          properties:
+            token:
+              type: string
+              description: The access or refresh token to revoke.
+            token_type_hint:
+              type: string
+              enum: [access_token, refresh_token]
+            client_id:
+              type: string
+  responses:
+    '200':
+      description: Successful request (always returned, even if token was not found)
+    '429':
+      $ref: '../../openapi.yaml#/components/responses/TooManyRequestsError'

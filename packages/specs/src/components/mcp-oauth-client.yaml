@@ -1,0 +1,27 @@
+type: object
+properties:
+  client_id:
+    description: Unique identifier for the OAuth client.
+    type: string
+  client_name:
+    description: Name of the client displayed on the consent page.
+    type: string
+  redirect_uris:
+    description: Allowed redirect URIs for authorization responses.
+    type: array
+    items:
+      type: string
+  grant_types:
+    description: OAuth grant types the client is authorized to use.
+    type: array
+    items:
+      type: string
+  token_endpoint_auth_method:
+    description: Authentication method for the token endpoint.
+    type: string
+  client_id_issued_at:
+    description: Unix timestamp when the client was registered.
+    type: integer
+  client_secret_expires_at:
+    description: Unix timestamp when the client secret expires, or 0 if it does not expire.
+    type: integer
