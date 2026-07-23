@@ -176,6 +176,8 @@ paths:
   # Files
   /files:
     $ref: './paths/files/files.yaml'
+  /files/import:
+    $ref: './paths/files/import.yaml'
   /files/{id}:
     $ref: './paths/files/file.yaml'
 

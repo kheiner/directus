@@ -1,0 +1,43 @@
+post:
+  summary: Import a File
+  description: Import a file from a remote URL.
+  tags:
+    - Files
+  operationId: importFile
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [url]
+          properties:
+            url:
+              description: The URL to download the file from.
+              type: string
+              example: https://source.unsplash.com/random
+            data:
+              description: Any of the file object's properties, to be saved on the new file.
+              type: object
+            options:
+              description: Import options.
+              type: object
+              properties:
+                filterMimeType:
+                  description: Only allow files matching one of these MIME types.
+                  type: array
+                  items:
+                    type: string
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Files'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
