@@ -1,0 +1,20 @@
+get:
+  summary: Retrieve Share Info
+  description: Retrieve public metadata for a share (no authentication required).
+  operationId: getShareInfo
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Shares'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Shares
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'

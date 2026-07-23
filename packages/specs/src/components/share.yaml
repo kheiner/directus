@@ -1,0 +1,67 @@
+type: object
+properties:
+  id:
+    description: Unique identifier for the share.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    type: string
+    format: uuid
+  name:
+    description: Name of the share.
+    example: Share link
+    type: string
+    nullable: true
+  collection:
+    description: Collection that the share applies to.
+    example: articles
+    type: string
+  item:
+    description: Primary key of the item the share points to.
+    example: '15'
+    type: string
+  role:
+    description: Role assigned to users accessing via the share.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    oneOf:
+      - type: string
+        format: uuid
+        nullable: true
+      - $ref: '../openapi.yaml#/components/schemas/Roles'
+  password:
+    description: Password required to use the share (hashed before storage).
+    type: string
+    nullable: true
+  user_created:
+    description: User that created the share.
+    example: 63716273-0f29-4648-8a2a-2af2948f6f78
+    oneOf:
+      - type: string
+        format: uuid
+        nullable: true
+      - $ref: '../openapi.yaml#/components/schemas/Users'
+  date_created:
+    description: When the share was created.
+    example: '2024-01-23T12:34:56Z'
+    type: string
+    format: date-time
+  date_start:
+    description: When the share becomes active.
+    example: '2024-01-23T12:34:56Z'
+    type: string
+    format: date-time
+    nullable: true
+  date_end:
+    description: When the share stops being active.
+    example: '2024-12-31T23:59:59Z'
+    type: string
+    format: date-time
+    nullable: true
+  times_used:
+    description: Number of times the share has been used.
+    example: 0
+    type: integer
+    nullable: true
+  max_uses:
+    description: Maximum number of times the share can be used.
+    example: 10
+    type: integer
+    nullable: true

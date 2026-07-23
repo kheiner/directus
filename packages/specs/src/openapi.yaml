@@ -102,6 +102,9 @@ tags:
   - name: Settings
     description: Settings control the way the platform works and acts.
     x-collection: directus_settings
+  - name: Shares
+    description: Shares grant tokenized, time-limited read access to a specific item.
+    x-collection: directus_shares
   - name: Translations
     description: Translations store custom translation strings used throughout the Data Studio.
     x-collection: directus_translations
@@ -286,6 +289,18 @@ paths:
   /settings:
     $ref: './paths/settings/settings.yaml'
 
+  # Shares
+  /shares:
+    $ref: './paths/shares/shares.yaml'
+  /shares/{id}:
+    $ref: './paths/shares/share.yaml'
+  /shares/{id}/info:
+    $ref: './paths/shares/share-info.yaml'
+  /shares/auth:
+    $ref: './paths/shares/share-auth.yaml'
+  /shares/invite:
+    $ref: './paths/shares/share-invite.yaml'
+
   # Translations
   /translations:
     $ref: './paths/translations/translations.yaml'
@@ -392,6 +407,8 @@ components:
       $ref: './components/schema.yaml'
     Settings:
       $ref: './components/setting.yaml'
+    Shares:
+      $ref: './components/share.yaml'
     Translations:
       $ref: './components/translation.yaml'
     Users:

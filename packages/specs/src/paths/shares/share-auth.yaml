@@ -1,0 +1,46 @@
+post:
+  summary: Log in to a Share
+  description: Retrieve a temporary access token for a share. Pass the share ID and (if set) its password.
+  operationId: shareLogin
+  tags:
+    - Shares
+  requestBody:
+    content:
+      application/json:
+        schema:
+          type: object
+          required: [share]
+          properties:
+            share:
+              type: string
+              format: uuid
+              description: Unique identifier of the share to log in to.
+            password:
+              type: string
+              description: Password of the share (required only if the share has one set).
+              example: password
+            mode:
+              type: string
+              enum: [json, cookie, session]
+              default: json
+              description: Whether to retrieve the refresh token in the JSON response, or in a httpOnly cookie.
+  responses:
+    '200':
+      description: Successful authentication
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    example: eyJhbGciOiJI...
+                  expires:
+                    type: integer
+                    example: 900
+                  refresh_token:
+                    type: string
+                    example: yuOJkjdPXMd...
