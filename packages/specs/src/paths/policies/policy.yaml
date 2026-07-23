@@ -1,7 +1,7 @@
 get:
-  summary: Retrieve a Role
-  description: Retrieve a single role by unique identifier.
-  operationId: getRole
+  summary: Retrieve a Policy
+  description: Retrieve a single policy by unique identifier.
+  operationId: getPolicy
   parameters:
     - $ref: '../../openapi.yaml#/components/parameters/Fields'
   responses:
@@ -13,25 +13,25 @@ get:
             type: object
             properties:
               data:
-                $ref: '../../openapi.yaml#/components/schemas/Roles'
+                $ref: '../../openapi.yaml#/components/schemas/Policies'
     '401':
       $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
     '404':
       $ref: '../../openapi.yaml#/components/responses/NotFoundError'
   tags:
-    - Roles
+    - Policies
 
 patch:
-  summary: Update a Role
-  description: Update an existing role
-  operationId: updateRole
+  summary: Update a Policy
+  description: Update an existing policy.
+  operationId: updatePolicy
   parameters:
     - $ref: '../../openapi.yaml#/components/parameters/Fields'
   requestBody:
     content:
       application/json:
         schema:
-          $ref: '../../openapi.yaml#/components/schemas/Roles'
+          $ref: '../../openapi.yaml#/components/schemas/Policies'
   responses:
     '200':
       description: Successful request
@@ -41,18 +41,18 @@ patch:
             type: object
             properties:
               data:
-                $ref: '../../openapi.yaml#/components/schemas/Roles'
+                $ref: '../../openapi.yaml#/components/schemas/Policies'
     '401':
       $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
     '404':
       $ref: '../../openapi.yaml#/components/responses/NotFoundError'
   tags:
-    - Roles
+    - Policies
 
 delete:
-  summary: Delete a Role
-  description: Delete an existing role
-  operationId: deleteRole
+  summary: Delete a Policy
+  description: Delete an existing policy.
+  operationId: deletePolicy
   responses:
     '200':
       description: Successful request
@@ -61,6 +61,6 @@ delete:
     '404':
       $ref: '../../openapi.yaml#/components/responses/NotFoundError'
   tags:
-    - Roles
+    - Policies
 parameters:
   - $ref: '../../openapi.yaml#/components/parameters/UUId'
