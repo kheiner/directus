@@ -35,14 +35,15 @@ properties:
     example:
       title: Hello, World!
     type: object
+    nullable: true
   parent:
-    description: If the current item was updated relationally, this is the id of the parent revision record
-    example: null
+    description: If the current item was updated relationally, this is the id of the parent revision record.
     type: integer
     nullable: true
   version:
     description: Associated version of this revision.
-    example: draft
     oneOf:
       - type: string
+        format: uuid
       - $ref: '../openapi.yaml#/components/schemas/Versions'
+    nullable: true
