@@ -66,23 +66,9 @@ post:
             search:
               type: string
               description: What the user searched for in search/filter in the header bar.
-            filters:
-              type: array
-              items:
-                type: object
-                properties:
-                  key:
-                    type: string
-                    example: aHKLAakdVghzD
-                  field:
-                    type: string
-                    example: rating
-                  operator:
-                    type: string
-                    example: gte
-                  value:
-                    type: integer
-                    example: 4.5
+            filter:
+              type: object
+              example: { rating: { _gte: 4.5 } }
             layout:
               type: string
               description: Name of the view type that is used.
@@ -153,23 +139,9 @@ patch:
                 search:
                   type: string
                   description: What the user searched for in search/filter in the header bar.
-                filters:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      key:
-                        type: string
-                        example: aHKLAakdVghzD
-                      field:
-                        type: string
-                        example: rating
-                      operator:
-                        type: string
-                        example: gte
-                      value:
-                        type: integer
-                        example: 4.5
+                filter:
+                  type: object
+                  example: { rating: { _gte: 4.5 } }
                 layout:
                   type: string
                   description: Name of the view type that is used.

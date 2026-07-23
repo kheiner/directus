@@ -53,20 +53,9 @@ patch:
             search_query:
               type: string
               description: What the user searched for in search/filter in the header bar.
-            filters:
-              type: array
-              items:
-                type: object
-                properties:
-                  field:
-                    type: string
-                    example: rating
-                  operator:
-                    type: string
-                    example: gte
-                  value:
-                    type: integer
-                    example: 4.5
+            filter:
+              type: object
+              example: { rating: { _gte: 4.5 } }
             view_type:
               type: string
               description: Name of the view type that is used. Defaults to tabular.
