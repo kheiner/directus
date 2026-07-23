@@ -26,11 +26,13 @@ properties:
     type: string
     example: '2024-01-23T12:34:56Z'
     format: date-time
+    nullable: true
   date_updated:
     description: When the Comment was last updated.
     type: string
     example: '2024-01-23T12:34:56Z'
     format: date-time
+    nullable: true
   # User is nullable on the user-delete edge case for user_created and user_updated
   user_created:
     description: User that created the Comment.
