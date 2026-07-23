@@ -135,6 +135,9 @@ class OASSpecsService implements SpecificationSubService {
 			if (systemTag['x-authentication'] === 'admin' && !this.accountability?.admin) continue;
 			if (systemTag['x-authentication'] === 'user' && !this.accountability?.user) continue;
 
+			// Skip tags for features that are disabled via environment variable
+			if (systemTag['x-enabled-env'] && !env[systemTag['x-enabled-env']]) continue;
+
 			// Remaining system tags that don't have an associated collection are publicly available
 			if (!systemTag['x-collection']) {
 				tags.push(systemTag);
@@ -184,6 +187,8 @@ class OASSpecsService implements SpecificationSubService {
 
 			if (isSystem) {
 				for (const [path, pathItem] of Object.entries<PathItemObject>(spec.paths)) {
+					if (pathItem['x-enabled-env'] && !env[pathItem['x-enabled-env']]) continue;
+
 					for (const [method, operation] of Object.entries(pathItem)) {
 						if (operation.tags?.includes(tag.name)) {
 							if (!paths[path]) {
