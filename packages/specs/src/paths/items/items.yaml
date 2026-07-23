@@ -42,8 +42,8 @@ post:
   requestBody:
     content:
       application/json:
-        # Intentionally empty, see https://github.com/directus/directus/pull/16294
-        schema:
+        # Intentionally empty; api/src/services/specifications.ts merges in a oneOf per collection
+        schema: {}
   responses:
     '200':
       description: Successful request
