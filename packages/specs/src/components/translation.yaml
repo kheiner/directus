@@ -1,0 +1,19 @@
+type: object
+properties:
+  id:
+    description: Unique identifier for the translation.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    type: string
+    format: uuid
+  language:
+    description: Language code for the translation.
+    example: en-US
+    type: string
+  key:
+    description: Translation key identifier.
+    example: welcome_message
+    type: string
+  value:
+    description: Translated text.
+    example: Welcome
+    type: string

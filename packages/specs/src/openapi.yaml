@@ -61,6 +61,9 @@ tags:
   - name: Items
     description:
       Items are individual pieces of data in your database. They can be anything, from articles, to IoT status checks.
+  - name: Notifications
+    description: Notifications are shown in the Data Studio to alert users of relevant events.
+    x-collection: directus_notifications
   - name: Operations
     description: Operations are the building blocks within Data Flows.
     x-collection: directus_operations
@@ -99,6 +102,9 @@ tags:
   - name: Settings
     description: Settings control the way the platform works and acts.
     x-collection: directus_settings
+  - name: Translations
+    description: Translations store custom translation strings used throughout the Data Studio.
+    x-collection: directus_translations
   - name: Users
     description: Users are what gives you access to the data.
     x-collection: directus_users
@@ -210,6 +216,12 @@ paths:
   /folders/{id}:
     $ref: './paths/folders/folder.yaml'
 
+  # Notifications
+  /notifications:
+    $ref: './paths/notifications/notifications.yaml'
+  /notifications/{id}:
+    $ref: './paths/notifications/notification.yaml'
+
   # Operations
   /operations:
     $ref: './paths/operations/operations.yaml'
@@ -273,6 +285,12 @@ paths:
   # Settings
   /settings:
     $ref: './paths/settings/settings.yaml'
+
+  # Translations
+  /translations:
+    $ref: './paths/translations/translations.yaml'
+  /translations/{id}:
+    $ref: './paths/translations/translation.yaml'
 
   # Users
   /users:
@@ -350,6 +368,8 @@ components:
       $ref: './components/folder.yaml'
     Items:
       $ref: './components/item.yaml'
+    Notifications:
+      $ref: './components/notification.yaml'
     Operations:
       $ref: './components/operation.yaml'
     Panels:
@@ -372,6 +392,8 @@ components:
       $ref: './components/schema.yaml'
     Settings:
       $ref: './components/setting.yaml'
+    Translations:
+      $ref: './components/translation.yaml'
     Users:
       $ref: './components/user.yaml'
     Versions:

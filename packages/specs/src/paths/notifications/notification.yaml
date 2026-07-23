@@ -1,0 +1,67 @@
+get:
+  summary: Retrieve a Notification
+  description: Retrieve a single notification by unique identifier.
+  operationId: getNotification
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Notifications'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Notifications
+
+patch:
+  summary: Update a Notification
+  description: Update an existing notification.
+  operationId: updateNotification
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - $ref: '../../openapi.yaml#/components/schemas/Notifications'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Notifications'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Notifications
+
+delete:
+  summary: Delete a Notification
+  description: Delete an existing notification.
+  operationId: deleteNotification
+  responses:
+    '200':
+      description: Successful request
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Notifications
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/Id'

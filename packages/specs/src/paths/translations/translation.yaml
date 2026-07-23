@@ -1,0 +1,67 @@
+get:
+  summary: Retrieve a Translation
+  description: Retrieve a single translation by unique identifier.
+  operationId: getTranslation
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Translations'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Translations
+
+patch:
+  summary: Update a Translation
+  description: Update an existing translation.
+  operationId: updateTranslation
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - $ref: '../../openapi.yaml#/components/schemas/Translations'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Translations'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Translations
+
+delete:
+  summary: Delete a Translation
+  description: Delete an existing translation.
+  operationId: deleteTranslation
+  responses:
+    '200':
+      description: Successful request
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Translations
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'

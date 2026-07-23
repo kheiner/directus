@@ -1,0 +1,47 @@
+type: object
+properties:
+  id:
+    description: Unique identifier for the notification.
+    example: 1
+    type: integer
+  status:
+    description: Status of the notification.
+    example: inbox
+    type: string
+  timestamp:
+    description: When the notification was sent.
+    example: '2024-01-23T12:34:56Z'
+    type: string
+    format: date-time
+    nullable: true
+  recipient:
+    description: User that receives the notification.
+    example: 63716273-0f29-4648-8a2a-2af2948f6f78
+    type: string
+    format: uuid
+  sender:
+    description: User that sent the notification. Null for system-generated notifications.
+    example: 63716273-0f29-4648-8a2a-2af2948f6f78
+    oneOf:
+      - type: string
+        format: uuid
+        nullable: true
+      - $ref: '../openapi.yaml#/components/schemas/Users'
+  subject:
+    description: Subject of the notification.
+    example: New comment on your post
+    type: string
+  message:
+    description: Body of the notification.
+    type: string
+    nullable: true
+  collection:
+    description: Collection that the notification's linked item belongs to.
+    example: articles
+    type: string
+    nullable: true
+  item:
+    description: Primary key of the item the notification links to.
+    example: '15'
+    type: string
+    nullable: true
