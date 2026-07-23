@@ -1,0 +1,76 @@
+type: object
+properties:
+  id:
+    description: Unique identifier for the panel.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    type: string
+    format: uuid
+  dashboard:
+    description: Dashboard that owns this panel.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    oneOf:
+      - type: string
+        format: uuid
+      - $ref: '../openapi.yaml#/components/schemas/Dashboards'
+  name:
+    description: Name of the panel.
+    example: Orders over time
+    type: string
+    nullable: true
+  icon:
+    description: The panel's icon.
+    example: insert_chart
+    type: string
+    nullable: true
+  color:
+    description: The panel's color theme.
+    example: '#6644ff'
+    type: string
+    nullable: true
+  show_header:
+    description: Whether to show the panel header.
+    example: true
+    type: boolean
+  note:
+    description: Description for the panel.
+    example: Monthly order totals.
+    type: string
+    nullable: true
+  type:
+    description: Panel type identifier. Determines which panel module renders the panel.
+    example: time-series
+    type: string
+  position_x:
+    description: Grid X coordinate of the panel.
+    example: 1
+    type: integer
+  position_y:
+    description: Grid Y coordinate of the panel.
+    example: 1
+    type: integer
+  width:
+    description: Grid width of the panel.
+    example: 12
+    type: integer
+  height:
+    description: Grid height of the panel.
+    example: 6
+    type: integer
+  options:
+    description: Panel-type-specific options.
+    type: object
+    nullable: true
+  date_created:
+    description: When the panel was created.
+    example: '2024-01-23T12:34:56Z'
+    type: string
+    format: date-time
+    nullable: true
+  user_created:
+    description: User that created the panel.
+    example: 63716273-0f29-4648-8a2a-2af2948f6f78
+    oneOf:
+      - type: string
+        format: uuid
+        nullable: true
+      - $ref: '../openapi.yaml#/components/schemas/Users'

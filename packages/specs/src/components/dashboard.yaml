@@ -1,0 +1,39 @@
+type: object
+properties:
+  id:
+    description: Unique identifier for the dashboard.
+    example: 2f24211d-d928-469a-aea3-3c8f53d4e426
+    type: string
+    format: uuid
+  name:
+    description: Name of the dashboard.
+    example: Analytics
+    type: string
+  icon:
+    description: The dashboard's icon.
+    example: dashboard
+    type: string
+  note:
+    description: Description for the dashboard.
+    example: Monthly analytics dashboard.
+    type: string
+    nullable: true
+  color:
+    description: The dashboard's color theme.
+    example: '#6644ff'
+    type: string
+    nullable: true
+  date_created:
+    description: When the dashboard was created.
+    example: '2024-01-23T12:34:56Z'
+    type: string
+    format: date-time
+    nullable: true
+  user_created:
+    description: User that created the dashboard.
+    example: 63716273-0f29-4648-8a2a-2af2948f6f78
+    oneOf:
+      - type: string
+        format: uuid
+        nullable: true
+      - $ref: '../openapi.yaml#/components/schemas/Users'

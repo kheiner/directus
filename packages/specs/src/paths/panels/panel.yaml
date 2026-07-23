@@ -1,0 +1,67 @@
+get:
+  summary: Retrieve a Panel
+  description: Retrieve a single panel by unique identifier.
+  operationId: getPanel
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Panels'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Panels
+
+patch:
+  summary: Update a Panel
+  description: Update an existing panel.
+  operationId: updatePanel
+  parameters:
+    - $ref: '../../openapi.yaml#/components/parameters/Fields'
+  requestBody:
+    content:
+      application/json:
+        schema:
+          anyOf:
+            - $ref: '../../openapi.yaml#/components/schemas/Panels'
+  responses:
+    '200':
+      description: Successful request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              data:
+                $ref: '../../openapi.yaml#/components/schemas/Panels'
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Panels
+
+delete:
+  summary: Delete a Panel
+  description: Delete an existing panel.
+  operationId: deletePanel
+  responses:
+    '200':
+      description: Successful request
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Panels
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'

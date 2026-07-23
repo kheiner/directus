@@ -36,6 +36,9 @@ tags:
   - name: Comments
     description: Comments can be added to items.
     x-collection: directus_comments
+  - name: Dashboards
+    description: Dashboards are a collection of panels that visualize data via the Insights module.
+    x-collection: directus_dashboards
   - name: Extensions
     description:
       Directus can easily be extended through the addition of several types of extensions, including layouts,
@@ -61,6 +64,9 @@ tags:
   - name: Operations
     description: Operations are the building blocks within Data Flows.
     x-collection: directus_operations
+  - name: Panels
+    description: Panels are the individual visualizations that make up a dashboard.
+    x-collection: directus_panels
   - name: Permissions
     description: Permissions control who has access to what and when.
     x-collection: directus_permissions
@@ -160,6 +166,12 @@ paths:
   /comments/{id}:
     $ref: './paths/comments/comment.yaml'
 
+  # Dashboards
+  /dashboards:
+    $ref: './paths/dashboards/dashboards.yaml'
+  /dashboards/{id}:
+    $ref: './paths/dashboards/dashboard.yaml'
+
   # Extensions
   /extensions:
     $ref: './paths/extensions/list.yaml'
@@ -203,6 +215,12 @@ paths:
     $ref: './paths/operations/operations.yaml'
   /operations/{id}:
     $ref: './paths/operations/operation.yaml'
+
+  # Panels
+  /panels:
+    $ref: './paths/panels/panels.yaml'
+  /panels/{id}:
+    $ref: './paths/panels/panel.yaml'
 
   # Permissions
   /permissions:
@@ -314,6 +332,8 @@ components:
       $ref: './components/collection.yaml'
     Comments:
       $ref: './components/comment.yaml'
+    Dashboards:
+      $ref: './components/dashboard.yaml'
     Diff:
       $ref: './components/diff.yaml'
     Error:
@@ -332,6 +352,8 @@ components:
       $ref: './components/item.yaml'
     Operations:
       $ref: './components/operation.yaml'
+    Panels:
+      $ref: './components/panel.yaml'
     Permissions:
       $ref: './components/permissions.yaml'
     Policies:
