@@ -6,8 +6,9 @@ properties:
     type: integer
   status:
     description: Status of the notification.
-    example: inbox
+    default: inbox
     type: string
+    nullable: true
   timestamp:
     description: When the notification was sent.
     example: '2024-01-23T12:34:56Z'
