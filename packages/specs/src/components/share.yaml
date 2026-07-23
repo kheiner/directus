@@ -43,6 +43,7 @@ properties:
     example: '2024-01-23T12:34:56Z'
     type: string
     format: date-time
+    nullable: true
   date_start:
     description: When the share becomes active.
     example: '2024-01-23T12:34:56Z'
