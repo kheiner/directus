@@ -1,4 +1,5 @@
 type: object
+required: [collection]
 properties:
   id:
     description: Unique identifier for this single collection preset.
