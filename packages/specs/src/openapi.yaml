@@ -184,6 +184,8 @@ paths:
   # Flows
   /flows:
     $ref: './paths/flows/flows.yaml'
+  /flows/trigger/{id}:
+    $ref: './paths/flows/trigger.yaml'
   /flows/{id}:
     $ref: './paths/flows/flow.yaml'
 

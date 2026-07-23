@@ -1,0 +1,33 @@
+get:
+  summary: Trigger a Flow (webhook, GET)
+  description: Trigger a flow's webhook trigger via `GET`. Request and response shape are defined by the flow.
+  operationId: triggerFlowGet
+  responses:
+    '200':
+      description: Successful request. Response body is defined by the flow.
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Flows
+
+post:
+  summary: Trigger a Flow (webhook, POST)
+  description: Trigger a flow's webhook trigger via `POST`. Request and response shape are defined by the flow.
+  operationId: triggerFlowPost
+  requestBody:
+    content:
+      application/json:
+        schema: {}
+  responses:
+    '200':
+      description: Successful request. Response body is defined by the flow.
+    '401':
+      $ref: '../../openapi.yaml#/components/responses/UnauthorizedError'
+    '404':
+      $ref: '../../openapi.yaml#/components/responses/NotFoundError'
+  tags:
+    - Flows
+parameters:
+  - $ref: '../../openapi.yaml#/components/parameters/UUId'
